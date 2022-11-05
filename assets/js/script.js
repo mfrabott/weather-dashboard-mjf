@@ -1,12 +1,12 @@
 var usersContainer = document.getElementById('users');
 var fetchButton = document.querySelector('#fetch-button');
 
-var latInput = '40';
-var lonInput = '-80';
-var apiKey = '99afeda6d0c563b7397dc3f6cc43fdd6';
+var latInput = '44.34';
+var lonInput = '-10.99';
+var apiKey = 'bfaa3809424ecd171e99f41a51df3779';
 
 function getApi() {
-  var requestUrl = 'api.openweathermap.org/data/2.5/forecast?lat=' + latInput + '&lon=' + lonInput + '&appid=' + apiKey;
+  var requestUrl = 'api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=' + apiKey;
   console.log(requestUrl)
   fetch(requestUrl)
     .then(function (response) {
