@@ -1,7 +1,7 @@
 var usersContainer = document.getElementById('users');
 var fetchButton = document.querySelector('#fetch-button');
 
-var citySelector = document.querySelector('#cityInput');
+var citySelector = document.querySelector('#city-input');
 
 var selectedCity = "";
 
