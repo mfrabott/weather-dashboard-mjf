@@ -32,10 +32,17 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
 
+## Challenges and Accomplishments
+
+As this was the first time I had really worked with third-party APIs, it took a little bit of trial and error getting to the right endpoints I wanted. This was also one of the first opportunities to pass variables through functions, though I was able to navigate that with relative ease. I was also forced to confront my discomfort wih using the 'this' keyword for the saved cities search which was a good problem to work through (although will take more practice to nail down).
+
+
 ## Screen Capture
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Columbus.](./Assets/images/Screenshot%202022-11-14%20095212.png)
 
 ## Deployed Link
+
+https://mfrabott.github.io/weather-dashboard-mjf/
