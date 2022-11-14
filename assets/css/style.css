@@ -43,7 +43,8 @@ h1{
     
 }
 
-.today-card{
+.today-card,
+.daily-card{
     background-color: #555;
     color: aliceblue;
     align-items: center;
@@ -55,6 +56,13 @@ h1{
     height: 4rem;
     width: 4rem;
 }
+
+.five-day-forecast img{
+    height: 4rem;
+    width: 4rem;
+}
+
+
 
 #fetch-button{
     color: aliceblue;

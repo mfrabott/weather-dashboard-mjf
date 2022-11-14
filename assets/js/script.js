@@ -13,6 +13,7 @@ var forecast = document.querySelector('.display-weather');
 var currentConditionIcon = document.querySelector('#current-icon')
 var cityDisplay = document.querySelector('#city-name');
 var savedCitiesEl = document.querySelector('.searched-cities')
+var fiveDayEl = document.querySelector('.five-day-forecast');
 
 
 var savedCities = JSON.parse(localStorage.getItem('savedCities')) ?? [];;
@@ -82,13 +83,48 @@ function getFiveDayApi(latitude, longitude) {
     .then(function (fiveDayData) {
       console.log(fiveDayData);
     
-      for (i=0; i<fiveDayData.list.length; i++){
-          var minTemp = fiveDayData.list[i].main.temp_min;
-          var maxTemp = fiveDayData.list[i].main.temp_max;
-          var fullDateTime = dayjs(fiveDayData.list[i].dt_txt).toDate();
-          var displayDate = dayjs(fullDateTime).format('dddd, MMMM D,YYYY');
-          var weatherCondition = fiveDayData.list[i].weather[0].main;
+      var existingDailyCards = fiveDayEl.getElementsByTagName('*');
+  
+      // Hides past results
+      for (i=0; i<existingDailyCards.length; i++){
+        existingDailyCards[i].setAttribute('style', 'display: none')
+      }
 
+      for (i=0; i<fiveDayData.list.length; i++){
+        var minTemp = fiveDayData.list[i].main.temp_min;
+        var maxTemp = fiveDayData.list[i].main.temp_max.toFixed(0);
+        var fullDateTime = dayjs(fiveDayData.list[i].dt_txt).toDate();
+        var displayDay = dayjs(fullDateTime).format('dddd');
+        var displayDate = dayjs(fullDateTime).format('MMMM D,YYYY');
+        var time = dayjs(fullDateTime).format('h:mmA')
+        var weatherCondition = fiveDayData.list[i].weather[0].main;
+        var dailyWeatherIcon = fiveDayData.list[i].weather[0].icon;
+
+        if (time === '3:00PM'){
+          var dailyCard = document.createElement('div');
+          dailyCard.classList.add('card','m-2', 'daily-card');
+          dailyCard.setAttribute('style', 'width: 14rem');
+          fiveDayEl.appendChild(dailyCard)
+          var cardDay = document.createElement('h5');
+          cardDay.textContent = displayDay;
+          cardDay.classList.add('card-title')
+          dailyCard.appendChild(cardDay);
+          var cardDate = document.createElement('h5');
+          cardDate.textContent = displayDate;
+          cardDate.classList.add('card-title')
+          dailyCard.appendChild(cardDate);
+          var dailyIcon = document.createElement('img')
+          dailyIcon.setAttribute('src', 'https://openweathermap.org/img/wn/'+ dailyWeatherIcon + '.png');
+          dailyCard.appendChild(dailyIcon);
+          var dailyCondition = document.createElement('p')
+          dailyCondition.classList.add('cardText')
+          dailyCondition.textContent = weatherCondition;
+          dailyCard.appendChild(dailyCondition)
+          var dailyHigh = document.createElement('p')
+          dailyHigh.classList.add('cardText')
+          dailyHigh.textContent = parseFloat(maxTemp) + '°F';
+          dailyCard.appendChild(dailyHigh)
+        }
       };
 
 
