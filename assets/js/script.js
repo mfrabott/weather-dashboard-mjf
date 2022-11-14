@@ -29,6 +29,7 @@ var displaySavedCities = function() {
   for (i=0; i<savedCities.length; i++) {
     var cityButton = document.createElement('button')
     cityButton.textContent = savedCities[i].city;
+    cityButton.classList.add('col-xs-7', 'col-sm-6', 'col-lg-3', 'col-xl-2')
     cityButton.addEventListener('click', function(event) {
       getCoordinatesApi(this.textContent);
     });
