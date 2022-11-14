@@ -50,6 +50,7 @@ h1{
     align-items: center;
     align-content: center;
     padding: 2rem;
+    flex-wrap: wrap;
 }
 
 .today-weather img{
@@ -60,6 +61,9 @@ h1{
 .five-day-forecast img{
     height: 4rem;
     width: 4rem;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
 

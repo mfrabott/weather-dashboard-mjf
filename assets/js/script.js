@@ -5,7 +5,8 @@ var selectedCity = "";
 var apiKey = '99afeda6d0c563b7397dc3f6cc43fdd6';
 
 var currentHumidityEl = document.querySelector('#current-humidity');
-var currentDateTimeEl = document.querySelector('#current-day');
+var currentDateEl = document.querySelector('#current-day');
+var currentTimeEl = document.querySelector('#current-time');
 var currentTempEl = document.querySelector('#current-temp');
 var currentConditionEl = document.querySelector('#current-condition');
 var currentWindEl = document.querySelector('#current-wind');
@@ -47,12 +48,9 @@ function getCurrentWeatherApi(latitude, longitude, displayCity) {
         return response.json();
       })
       .then(function (currentWeather) {
-        console.log(currentWeather);
         var currentHumidity= currentWeather.main.humidity;
-        // var currentDateTime = dayjs(currentWeather.dt).format('dddd, MMMM D,YYYY h:mmA');
-      //  TODO format day/date
-        // var currentDay = '';
-        // var currentDate = '';
+        var currentDate = dayjs.unix(currentWeather.dt).format('dddd, MMMM D, YYYY ');
+        var currentTime = dayjs.unix(currentWeather.dt).format('h:mm A');
         var weatherIcon = currentWeather.weather[0].icon;
         var currentTemp = currentWeather.main.temp.toFixed(0);
         var currentCondition = currentWeather.weather[0].main;
@@ -61,7 +59,8 @@ function getCurrentWeatherApi(latitude, longitude, displayCity) {
         cityDisplay.textContent = displayCity;
         currentConditionIcon.setAttribute('src', 'https://openweathermap.org/img/wn/'+weatherIcon + '.png')
         currentConditionEl.textContent = currentCondition;
-        // currentDateTimeEl.textContent = currentDateTime;
+        currentDateEl.textContent = currentDate;
+        currentTimeEl.textContent = currentTime;
         currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + '%';
         currentTempEl.textContent = 'Temperature: ' + parseFloat(currentTemp) + '°F';
         forecast.setAttribute("style", "display: inline")
@@ -81,11 +80,9 @@ function getFiveDayApi(latitude, longitude) {
     })
 
     .then(function (fiveDayData) {
-      console.log(fiveDayData);
-    
-      var existingDailyCards = fiveDayEl.getElementsByTagName('*');
-  
+    console.log(fiveDayData)
       // Hides past results
+      var existingDailyCards = fiveDayEl.getElementsByTagName('*');     
       for (i=0; i<existingDailyCards.length; i++){
         existingDailyCards[i].setAttribute('style', 'display: none')
       }
@@ -99,11 +96,13 @@ function getFiveDayApi(latitude, longitude) {
         var time = dayjs(fullDateTime).format('h:mmA')
         var weatherCondition = fiveDayData.list[i].weather[0].main;
         var dailyWeatherIcon = fiveDayData.list[i].weather[0].icon;
+        var dailyWind = fiveDayData.list[i].wind.speed
+        var dailyHumidity = fiveDayData.list[i].main.humidity;
 
         if (time === '3:00PM'){
           var dailyCard = document.createElement('div');
-          dailyCard.classList.add('card','m-2', 'daily-card');
-          dailyCard.setAttribute('style', 'width: 14rem');
+          dailyCard.classList.add('card','m-2', 'daily-card', 'col-10', 'col-md-4', 'col-lg-2');
+          // dailyCard.setAttribute('style', 'display: inline');
           fiveDayEl.appendChild(dailyCard)
           var cardDay = document.createElement('h5');
           cardDay.textContent = displayDay;
@@ -124,6 +123,16 @@ function getFiveDayApi(latitude, longitude) {
           dailyHigh.classList.add('cardText')
           dailyHigh.textContent = parseFloat(maxTemp) + '°F';
           dailyCard.appendChild(dailyHigh)
+          var dailyHumidityEl = document.createElement('p')
+          dailyHumidityEl.classList.add('cardText')
+          dailyHumidityEl.textContent = 'Humidity: ' + dailyHumidity + '%';
+          dailyCard.appendChild(dailyHumidityEl)
+          var dailyWindEl = document.createElement('p')
+          dailyWindEl.classList.add('cardText')
+          dailyWindEl.textContent = 'Wind Speed: ' + dailyWind + ' mph';
+          dailyCard.appendChild(dailyWindEl)
+
+
         }
       };
 
@@ -142,7 +151,6 @@ function getCoordinatesApi(city) {
           return response.json();
         })
         .then(function (data) {
-            console.log(data);
             var latitude = data[0].lat;
             var longitude = data[0].lon;
             var displayCity = data[0].name;
