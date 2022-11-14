@@ -41,7 +41,7 @@ As this was the first time I had really worked with third-party APIs, it took a 
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Columbus.](./Assets/images/Screenshot%202022-11-14%20095212.png)
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Columbus.](./assets/images/Screenshot%202022-11-14%20095212.png)
 
 ## Deployed Link
 
