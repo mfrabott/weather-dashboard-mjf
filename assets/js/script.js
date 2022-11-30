@@ -80,7 +80,7 @@ function getFiveDayApi(latitude, longitude) {
     })
 
     .then(function (fiveDayData) {
-    console.log(fiveDayData)
+
       // Hides past results
       var existingDailyCards = fiveDayEl.getElementsByTagName('*');     
       for (i=0; i<existingDailyCards.length; i++){
@@ -179,6 +179,6 @@ citySelector.addEventListener("keydown", function (event) {
 });
 
 fetchButton.addEventListener("click", function (event) {
-      var selectedCity = event.target.value;
+      var selectedCity = citySelector.value;
       getCoordinatesApi(selectedCity);
 });
