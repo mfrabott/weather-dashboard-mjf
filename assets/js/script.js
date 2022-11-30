@@ -172,7 +172,7 @@ function getCoordinatesApi(city) {
 
 //checks whether the pressed key is "Enter"
 citySelector.addEventListener("keydown", function (event) {
-    if (event.code === "Enter") {  
+    if (event.key === "Enter") {  
         var selectedCity = event.target.value;
         getCoordinatesApi(selectedCity);
     }
